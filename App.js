@@ -1,10 +1,16 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
+import { useState } from "react";
+import ViewApp from "./view/View";
+import FormsView from "./view/FormsView";
 
 export default function App() {
+  const [books, setBooks] = useState([]);
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <FormsView style={styles.menu} books={books} setBooks={setBooks} />
+      <ViewApp books={books} setBooks={setBooks} />
       <StatusBar style="auto" />
     </View>
   );
@@ -13,8 +19,14 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    marginTop: 60,
+  },
+  menu: {
+    flex: 1,
+    width: "30%",
+    backgroundColor: "#bd2619",
+    color: "#ffffff",
+    paddingLeft: 10,
   },
 });
