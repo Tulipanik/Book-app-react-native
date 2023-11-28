@@ -1,4 +1,4 @@
-import { View, Pressable, Text } from "react-native";
+import { View, Pressable, Text, StyleSheet } from "react-native";
 import SearchingFormsView from "./SearchingFormsView";
 import AddFormView from "./AddFormView";
 import DeleteFormView from "./DeleteFormView";
@@ -10,7 +10,7 @@ export default function FormsView({ style, books, setBooks, setTableHead }) {
   return (
     <View style={style}>
       <Pressable onPress={() => setSearch(!search)}>
-        <Text>Searching tab</Text>
+        <Text style={[styles.whiteText, styles.buttons]}>Searching tab</Text>
       </Pressable>
       {search && (
         <SearchingFormsView
@@ -20,13 +20,33 @@ export default function FormsView({ style, books, setBooks, setTableHead }) {
         />
       )}
       <Pressable onPress={() => setEdit(!edit)}>
-        <Text>Editing tab</Text>
+        <Text style={[styles.whiteText, styles.buttons]}>Editing tab</Text>
       </Pressable>
       {edit && <AddFormView />}
       <Pressable onPress={() => setDel(!del)}>
-        <Text>Deleting tab</Text>
+        <Text style={[styles.whiteText, styles.buttons]}>Deleting tab</Text>
       </Pressable>
       {del && <DeleteFormView />}
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  whiteText: {
+    color: "#ffffff",
+  },
+  buttons: {
+    backgroundColor: "#bd2619",
+    color: "#ffffff",
+    backgroundColor: "#61120c",
+    fontSize: 18,
+    paddingHorizontal: 5,
+    paddingVertical: 5,
+    margin: 3,
+    width: 100,
+    textAlign: "center",
+    borderWidth: 2,
+    borderColor: "#ffffff",
+    borderRadius: 20,
+  },
+});

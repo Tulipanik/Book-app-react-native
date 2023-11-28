@@ -1,6 +1,10 @@
 import * as api from "../.Shared/BookApiService.js";
 import BookModel from "../models/BookModel.js";
 
+export async function maxId() {
+  return await api.getMaxId();
+}
+
 export async function getBooksPerPage(page) {
   const perPage = 10;
 

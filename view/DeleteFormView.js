@@ -53,7 +53,7 @@ export default function DeleteFormView() {
         </Text>
       )}
       <Pressable onPress={deleteAll}>
-        <Text style={styles.whiteText}>Delete all</Text>
+        <Text style={[styles.whiteText, styles.buttons]}>Delete all</Text>
       </Pressable>
       <View>
         {genreStatus == 1 && (
@@ -73,7 +73,7 @@ export default function DeleteFormView() {
           onChange={(e) => setGenre(e.target.value)}
         ></TextInput>
         <Pressable onPress={deleteGenre}>
-          <Text style={styles.whiteText}>Submit</Text>
+          <Text style={[styles.whiteText, styles.buttons]}>Submit</Text>
         </Pressable>
       </View>
       <View>
@@ -94,7 +94,7 @@ export default function DeleteFormView() {
           onChange={(e) => setId(e.target.value)}
         ></TextInput>
         <Pressable onPress={deleteId}>
-          <Text style={styles.whiteText}>Submit</Text>
+          <Text style={[styles.whiteText, styles.buttons]}>Submit</Text>
         </Pressable>
       </View>
     </View>
@@ -109,5 +109,19 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "#ffffff",
     borderRadius: 5,
+  },
+  buttons: {
+    backgroundColor: "#bd2619",
+    color: "#ffffff",
+    backgroundColor: "#61120c",
+    fontSize: 18,
+    paddingHorizontal: 5,
+    paddingVertical: 5,
+    margin: 3,
+    width: 100,
+    textAlign: "center",
+    borderWidth: 2,
+    borderColor: "#ffffff",
+    borderRadius: 20,
   },
 });

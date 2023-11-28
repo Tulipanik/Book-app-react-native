@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Pressable, Text, StyleSheet, Dimensions } from "react-native";
 import { Table, Row, Rows } from "react-native-table-component";
-import { getBooksPerPage } from "../viewModel/ViewModel";
+import { getBooksPerPage, maxId } from "../viewModel/ViewModel";
 
 export default function ViewApp({ books, setBooks, tableHead, setTableHead }) {
   const [page, setPage] = useState(1);
@@ -43,10 +43,29 @@ export default function ViewApp({ books, setBooks, tableHead, setTableHead }) {
         />
       </Table>
       <View style={styles.buttonContainer}>
-        <Pressable onPress={() => setPage(page - perPage)}>
+        <Pressable
+          onPress={() => {
+            if (page == 1) {
+              setPage(1);
+              return;
+            }
+            setPage(page - perPage);
+          }}
+        >
           <Text style={styles.buttons}>{"<"}</Text>
         </Pressable>
-        <Pressable onPress={() => setPage(page + perPage)}>
+        <Pressable
+          onPress={() => {
+            maxId().then((id) => {
+              console.log(id.max);
+              if (page + perPage >= id.max) {
+                setPage(page);
+                return;
+              }
+            });
+            setPage(page + perPage);
+          }}
+        >
           <Text style={styles.buttons}>{">"}</Text>
         </Pressable>
       </View>
@@ -58,6 +77,7 @@ const styles = StyleSheet.create({
   buttons: {
     backgroundColor: "#bd2619",
     color: "#ffffff",
+    backgroundColor: "#61120c",
     fontSize: 18,
     paddingHorizontal: 10,
     paddingVertical: 5,

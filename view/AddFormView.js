@@ -61,7 +61,7 @@ export default function AddFormView() {
           onChange={(e) => book.setGenre(e.target.value)}
         ></TextInput>
         <Pressable onPress={add}>
-          <Text style={[styles.whiteText]}>Submit</Text>
+          <Text style={[styles.whiteText, styles.buttons]}>Submit</Text>
         </Pressable>
       </View>
       <View>
@@ -97,7 +97,7 @@ export default function AddFormView() {
           onChange={(e) => bookUpdate.setGenre(e.target.value)}
         ></TextInput>
         <Pressable onPress={update}>
-          <Text style={[styles.whiteText]}>Submit</Text>
+          <Text style={[styles.whiteText, styles.buttons]}>Submit</Text>
         </Pressable>
       </View>
     </View>
@@ -114,5 +114,19 @@ const styles = StyleSheet.create({
     borderColor: "#ffffff",
     borderRadius: 5,
     margin: 2,
+  },
+  buttons: {
+    backgroundColor: "#bd2619",
+    color: "#ffffff",
+    backgroundColor: "#61120c",
+    fontSize: 18,
+    paddingHorizontal: 5,
+    paddingVertical: 5,
+    margin: 3,
+    width: 100,
+    textAlign: "center",
+    borderWidth: 2,
+    borderColor: "#ffffff",
+    borderRadius: 20,
   },
 });
