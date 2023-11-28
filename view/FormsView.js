@@ -3,7 +3,7 @@ import SearchingFormsView from "./SearchingFormsView";
 import AddFormView from "./AddFormView";
 import DeleteFormView from "./DeleteFormView";
 import { useState } from "react";
-export default function FormsView({ style, books, setBooks }) {
+export default function FormsView({ style, books, setBooks, setTableHead }) {
   const [search, setSearch] = useState(false);
   const [edit, setEdit] = useState(false);
   const [del, setDel] = useState(false);
@@ -12,7 +12,13 @@ export default function FormsView({ style, books, setBooks }) {
       <Pressable onPress={() => setSearch(!search)}>
         <Text>Searching tab</Text>
       </Pressable>
-      {search && <SearchingFormsView books={books} setBooks={setBooks} />}
+      {search && (
+        <SearchingFormsView
+          books={books}
+          setBooks={setBooks}
+          setTableHead={setTableHead}
+        />
+      )}
       <Pressable onPress={() => setEdit(!edit)}>
         <Text>Editing tab</Text>
       </Pressable>

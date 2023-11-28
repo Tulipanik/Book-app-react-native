@@ -3,21 +3,30 @@ import { View, TextInput, Pressable, Text, StyleSheet } from "react-native";
 import { useState } from "react";
 import * as search from "../viewModel/SearchViewModel";
 
-export default function SearchingFormsView({ books, setBooks }) {
+export default function SearchingFormsView({ books, setBooks, setTableHead }) {
   const [author, SetAuthor] = useState("");
   const [genre, SetGenre] = useState("");
   const [id, SetId] = useState("");
 
   const searchAuthor = () => {
-    search.handleAuthorSearch(author).then((book) => setBooks(book));
+    search.handleAuthorSearch(author).then((book) => {
+      setTableHead(book.pop());
+      setBooks(book);
+    });
   };
 
   const searchGenre = () => {
-    console.log(genre);
+    search.handleGenreSearch(genre).then((book) => {
+      setTableHead(book.pop());
+      setBooks(book);
+    });
   };
 
   const searchId = () => {
-    search.handleIdSearch(id).then((book) => setBooks(book));
+    search.handleIdSearch(id).then((book) => {
+      setTableHead(book.pop());
+      setBooks(book);
+    });
   };
 
   return (

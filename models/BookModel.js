@@ -4,7 +4,6 @@ export default class BookModel {
     this.title = title;
     this.author = author;
     this.genre = genre;
-    // this.releaseDate = releaseDate;
   }
 
   setId(id) {
@@ -23,17 +22,12 @@ export default class BookModel {
     this.genre = genre;
   }
 
-  setGenre(genre) {
-    this.genre = genre;
-  }
-
   toObject() {
     return {
       id: this.id,
       title: this.title,
       author: this.author,
       genre: this.genre,
-      // releaseDate: this.releaseDate,
     };
   }
 }

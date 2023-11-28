@@ -1,8 +1,5 @@
 const URL = "http://localhost:8080/";
 
-export function getMax() {
-  return maxId;
-}
 async function getAPIRequest(endpoint, metadata = {}) {
   return fetch(endpoint, metadata).then((res) => {
     if (res.ok) {

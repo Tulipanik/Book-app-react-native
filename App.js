@@ -6,11 +6,22 @@ import FormsView from "./view/FormsView";
 
 export default function App() {
   const [books, setBooks] = useState([]);
+  const [tableHead, setTableHead] = useState(["id", "title", "autor", "genre"]);
 
   return (
     <View style={styles.container}>
-      <FormsView style={styles.menu} books={books} setBooks={setBooks} />
-      <ViewApp books={books} setBooks={setBooks} />
+      <FormsView
+        style={styles.menu}
+        books={books}
+        setBooks={setBooks}
+        setTableHead={setTableHead}
+      />
+      <ViewApp
+        books={books}
+        setBooks={setBooks}
+        tableHead={tableHead}
+        setTableHead={setTableHead}
+      />
       <StatusBar style="auto" />
     </View>
   );

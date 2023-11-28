@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { View, TextInput, Text, Pressable, StyleSheet } from "react-native";
-import { addForm } from "../viewModel/ViewModel";
+import { addForm, updateForm } from "../viewModel/ViewModel";
 import BookModel from "../models/BookModel";
 
 export default function AddFormView() {
   const [status, setStatus] = useState(0);
+  const [statusUpdate, setStatusUpdate] = useState(0);
   const book = new BookModel({});
+  const bookUpdate = new BookModel({});
 
   const add = () => {
     console.log("witam");
@@ -19,7 +21,16 @@ export default function AddFormView() {
     });
   };
 
-  const update = () => {};
+  const update = () => {
+    updateForm(bookUpdate).then((state) => {
+      console.log(state);
+      if (state) {
+        setStatusUpdate(1);
+      } else {
+        setStatusUpdate(-1);
+      }
+    });
+  };
 
   return (
     <View>
@@ -49,39 +60,43 @@ export default function AddFormView() {
           placeholder="Genre"
           onChange={(e) => book.setGenre(e.target.value)}
         ></TextInput>
-        {/* <TextInput style={[styles.whiteText, styles.inputStyle]} inputMode="numeric"></TextInput> */}
         <Pressable onPress={add}>
           <Text style={[styles.whiteText]}>Submit</Text>
         </Pressable>
       </View>
       <View>
-        {status == 1 && (
+        {statusUpdate == 1 && (
           <Text style={[styles.whiteText, styles.inputStyle]}>
-            Book correctly added
+            Book correctly updated
           </Text>
         )}
-        {status == -1 && (
+        {statusUpdate == -1 && (
           <Text style={[styles.whiteText, styles.inputStyle]}>
-            Error occured while adding book
+            Error occured while updating book
           </Text>
         )}
         <TextInput
           style={[styles.whiteText, styles.inputStyle]}
+          inputMode="numeric"
+          placeholder="Id"
+          onChange={(e) => bookUpdate.setId(e.target.value)}
+        ></TextInput>
+        <TextInput
+          style={[styles.whiteText, styles.inputStyle]}
           placeholder="Title"
-          onChange={(e) => book.setTitle(e.target.value)}
+          onChange={(e) => bookUpdate.setTitle(e.target.value)}
         ></TextInput>
         <TextInput
           style={[styles.whiteText, styles.inputStyle]}
           placeholder="Author"
-          onChange={(e) => book.setAuthor(e.target.value)}
+          onChange={(e) => bookUpdate.setAuthor(e.target.value)}
         ></TextInput>
         <TextInput
           style={[styles.whiteText, styles.inputStyle]}
           placeholder="Genre"
-          onChange={(e) => book.setGenre(e.target.value)}
+          onChange={(e) => bookUpdate.setGenre(e.target.value)}
         ></TextInput>
-        {/* <TextInput style={[styles.whiteText, styles.inputStyle]} inputMode="numeric"></TextInput> */}
-        <Pressable onPress={add}>
+        <Pressable onPress={update}>
           <Text style={[styles.whiteText]}>Submit</Text>
         </Pressable>
       </View>

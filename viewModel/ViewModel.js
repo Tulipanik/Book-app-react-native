@@ -14,21 +14,33 @@ export async function getBooksPerPage(page) {
 
 export async function addForm(book) {
   try {
-    const maxId = await new Promise((resolve, reject) => {
-      api.getMaxId((maxId) => resolve(maxId));
-    });
+    console.log("Hejja");
+    const maxId = await api.getMaxId();
 
-    book.setId(maxId + 1);
-    console.log(book.id);
+    book.setId(maxId.max + 1);
     const message = await api.add(book);
 
-    if (message.status !== 201) {
+    if (message.message != "Udało się dodać do bazy") {
       return false;
     }
 
     return true;
-  } catch (error) {
-    console.error("Error adding form:", error);
+  } catch (err) {
+    console.error(err);
+    return false;
+  }
+}
+
+export async function updateForm(book) {
+  try {
+    const message = await api.update(book);
+
+    if (message.message != "Zaktualizowano pomyślnie") {
+      return false;
+    }
+    return true;
+  } catch (err) {
+    console.error(err);
     return false;
   }
 }
