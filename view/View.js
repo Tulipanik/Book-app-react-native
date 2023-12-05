@@ -58,7 +58,7 @@ export default function ViewApp({ books, setBooks, tableHead, setTableHead }) {
           onPress={() => {
             maxId().then((id) => {
               console.log(id.max);
-              if (page + perPage >= id.max) {
+              if (page + perPage > id.max) {
                 setPage(page);
                 return;
               }

@@ -1,8 +1,21 @@
-const URL = "http://localhost:8080/";
+import TokenService from "./authService";
 
-async function getAPIRequest(endpoint, metadata = {}) {
+export const URL = "http://localhost:8080/";
+
+export async function getAPIRequest(endpoint, token, metadata = {}) {
+  console.log(token);
+  if (token !== "" && !metadata.method) {
+    console.log(token);
+    metadata = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
+  }
+  console.log(metadata);
   return fetch(endpoint, metadata).then((res) => {
     if (res.ok) {
+      console.log(res.json);
       return res.json();
     } else {
       return new Error(res.status);
@@ -11,10 +24,11 @@ async function getAPIRequest(endpoint, metadata = {}) {
 }
 
 export async function getAllBooks(page, perPage) {
+  const token = await TokenService.getToken();
   const endpoint = `${URL}getAllBooks?perpage=${perPage}&page=${page}`;
 
   try {
-    const response = await getAPIRequest(endpoint);
+    const response = await getAPIRequest(endpoint, token);
     return response;
   } catch (err) {
     return;
@@ -22,10 +36,11 @@ export async function getAllBooks(page, perPage) {
 }
 
 export async function getAllGenre(genre) {
+  const token = await TokenService.getToken();
   const endpoint = `${URL}getBookByGenre/${genre}`;
 
   try {
-    const response = await getAPIRequest(endpoint);
+    const response = await getAPIRequest(endpoint, token);
     return response;
   } catch (err) {
     return;
@@ -33,10 +48,11 @@ export async function getAllGenre(genre) {
 }
 
 export async function getAllAuthor(author) {
+  const token = await TokenService.getToken();
   const endpoint = `${URL}getBookByAuthor/${author}`;
 
   try {
-    const response = await getAPIRequest(endpoint);
+    const response = await getAPIRequest(endpoint, token);
     return response;
   } catch (err) {
     return;
@@ -44,10 +60,11 @@ export async function getAllAuthor(author) {
 }
 
 export async function getById(id) {
+  const token = await TokenService.getToken();
   const endpoint = `${URL}getBookById/${id}`;
 
   try {
-    const response = await getAPIRequest(endpoint);
+    const response = await getAPIRequest(endpoint, token);
     return response;
   } catch (err) {
     return;
@@ -55,10 +72,11 @@ export async function getById(id) {
 }
 
 export async function getMaxId() {
+  const token = await TokenService.getToken();
   const endpoint = `${URL}getMaxId`;
 
   try {
-    const response = await getAPIRequest(endpoint);
+    const response = await getAPIRequest(endpoint, token);
     return response;
   } catch (err) {
     return;
@@ -66,13 +84,15 @@ export async function getMaxId() {
 }
 
 export async function add(book) {
+  const token = await TokenService.getToken();
   const endpoint = `${URL}addBook`;
 
   try {
-    const response = await getAPIRequest(endpoint, {
+    const response = await getAPIRequest(endpoint, token, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
       },
       body: JSON.stringify(book),
     });
@@ -83,13 +103,15 @@ export async function add(book) {
 }
 
 export async function update(book) {
+  const token = await TokenService.getToken();
   const endpoint = `${URL}updateBook/${book.id}`;
 
   try {
-    const response = await getAPIRequest(endpoint, {
+    const response = await getAPIRequest(endpoint, token, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
       },
       body: JSON.stringify(book),
     });
@@ -100,11 +122,16 @@ export async function update(book) {
 }
 
 export async function deleteAll() {
+  const token = await TokenService.getToken();
   const endpointDailyForecast = `${URL}deleteAllBooks`;
+  console.log("siema");
 
   try {
-    const response = await getAPIRequest(endpointDailyForecast, {
+    const response = await getAPIRequest(endpointDailyForecast, token, {
       method: "DELETE",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
     });
     return response;
   } catch (err) {
@@ -116,11 +143,15 @@ export async function deleteId(id) {
   if (id == "") {
     id = 0;
   }
+  const token = await TokenService.getToken();
   const endpoint = `${URL}deleteBookById/${id}`;
 
   try {
-    const response = await getAPIRequest(endpoint, {
+    const response = await getAPIRequest(endpoint, token, {
       method: "DELETE",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
     });
     return response;
   } catch (err) {
@@ -129,11 +160,15 @@ export async function deleteId(id) {
 }
 
 export async function deleteGenre(genre) {
+  const token = await TokenService.getToken();
   const endpointDailyForecast = `${URL}/deleteAllBooksByGenre/${genre}`;
 
   try {
-    const response = await getAPIRequest(endpointDailyForecast, {
+    const response = await getAPIRequest(endpointDailyForecast, token, {
       method: "DELETE",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
     });
     return response;
   } catch (err) {
